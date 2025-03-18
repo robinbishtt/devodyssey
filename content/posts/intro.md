@@ -1,5 +1,5 @@
 ---
-title: "The Awakening of Intelligence"
+title: "Introduction"
 date: 2025-03-18T17:07:01+05:30
 draft: true
 ---
