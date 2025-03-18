@@ -1,4 +1,22 @@
 baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+defaultContentLanguage = "en"
+title = "DevOdyssey"
 theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowToc = true
+  ShowWordCount = true
+  disableScrollToTop = false
+
+  # Change Header Text (Label)
+  [params.label]
+    text = "DevOdyssey"
+    icon = "favicon.ico" # Change this if you have a custom favicon
+
+  # Change Footer Text
+  [params.footer]
+    text = "© 2025 DevOdyssey. All Rights Reserved."
