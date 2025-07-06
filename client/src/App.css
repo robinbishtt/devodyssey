@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global tweaks */
+html,
+body {
+  @apply bg-black m-0 p-0;
+  font-family: 'Poppins', sans-serif;
+}
