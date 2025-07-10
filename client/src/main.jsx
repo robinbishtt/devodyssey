@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App.jsx";
-import store from "./store/store.js";
+import { store } from "./store/store.js";
 
 import Home from "./pages/Home";
 import AllBlogs from "./pages/AllBlogs";

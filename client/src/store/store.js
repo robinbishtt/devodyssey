@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./slice/user/user.slice";
-import BlogsReducer from "./slice/blogs/blogs.slice";
+import authReducer from "./slice/authSlice/auth.slice";
+import BlogsReducer from "./slice/blogSlice/blogs.slice";
+import interactReducer from "./slice/blogSlice/interactionSlice/interact.slice";
 
 export const store = configureStore({
     reducer: {
-        userReducer,
-        BlogsReducer,
+        authReducer,
+        blogs: BlogsReducer,
+        interactReducer,
     },
 });

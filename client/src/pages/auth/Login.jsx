@@ -1,21 +1,23 @@
-import { useState } from "react";
 import { FaUser, FaKey } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa6";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUserThunk } from "../../store/slice/authSlice/auth.thunk";
 
 function Login() {
 
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    // const { isAuthenticated } = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch();
+    const { isAuthenticated } = useSelector((state) => state.authReducer);
     const [loginData, setLoginData] = useState({
         username: "",
         password: "",
     });
 
-    // useEffect(() => {
-    //     if (isAuthenticated) navigate("/");
-    // }, [isAuthenticated]);
+    useEffect(() => {
+        if (isAuthenticated) navigate("/");
+    }, [isAuthenticated]);
 
     const handleInputChange = (e) => {
         setLoginData((prev) => ({
@@ -24,8 +26,9 @@ function Login() {
         }));
     };
 
-    const handleLogin = async () => {
-        // const response = await dispatch(loginUserThunk(loginData));
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const response = await dispatch(loginUserThunk(loginData));
         if (response?.payload?.success) {
             navigate("/");
         }
@@ -48,7 +51,7 @@ function Login() {
             </div>
 
             {/* Form Column */}
-            <form className="flex flex-col items-center gap-3 md:gap-4 p-3 md:p-8 rounded-b-3xl md:rounded-r-3xl md:rounded-bl-none bg-white/5 backdrop-blur-xl shadow-lg z-[10] relative min-w-[20rem] md:max-w-[70rem]">
+            <form className="flex flex-col items-center gap-3 md:gap-4 p-3 md:p-8 rounded-b-3xl md:rounded-r-3xl md:rounded-bl-none bg-white/5 backdrop-blur-xl shadow-lg z-[10] relative min-w-[20rem] md:max-w-[70rem]" onSubmit={handleLogin}>
                 <h3 className="mb-2 text-xl font-semibold text-center text-white md:text-2xl">
                     Log In
                 </h3>
@@ -84,7 +87,6 @@ function Login() {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    onClick={handleLogin}
                     className="md:w-[90px] w-[50px] md:px-4 md:py-2 px-2 py-1 text-xs md:text-sm font-medium transition-transform rounded-full bg-gradient-to-r from-blue-700 to-violet-700 hover:scale-105"
                 >
                     Login

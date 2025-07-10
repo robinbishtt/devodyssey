@@ -1,14 +1,16 @@
-import { useState } from "react";
 import { FaUser, FaEnvelope, FaKey, FaLock } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import { toast } from 'sonner'
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUserThunk } from "../../store/slice/authSlice/auth.thunk";
 
 function Signup() {
 
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    // const { isAuthenticated } = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch();
+    const { isAuthenticated } = useSelector((state) => state.authReducer);
     const [signupData, setSignupData] = useState({
         fullName: "",
         username: "",
@@ -16,9 +18,9 @@ function Signup() {
         confirmPassword: "",
     });
 
-    // useEffect(() => {
-    //   if (isAuthenticated) navigate("/");
-    // }, [isAuthenticated]);
+    useEffect(() => {
+      if (isAuthenticated) navigate("/");
+    }, [isAuthenticated]);
 
     const handleInputChange = (e) => {
         setSignupData((prev) => ({
@@ -27,11 +29,12 @@ function Signup() {
         }));
     };
 
-    const handleSignup = async () => {
+    const handleSignup = async (e) => {
+        e.preventDefault();
         if (signupData.password !== signupData.confirmPassword) {
             return toast.error("Password and confirm password do not match");
         }
-        //   const response = await dispatch(registerUserThunk(signupData));
+          const response = await dispatch(registerUserThunk(signupData));
         if (response?.payload?.success) {
             navigate("/");
         }
@@ -54,7 +57,7 @@ function Signup() {
             </div>
 
             {/* Form Column */}
-            <form className="flex flex-col items-center gap-2 md:gap-4 p-3 md:p-8 rounded-b-3xl md:rounded-r-3xl md:rounded-bl-none bg-white/5 backdrop-blur-xl shadow-lg z-[10] relative min-w-[20rem] md:max-w-[70rem]">
+            <form className="flex flex-col items-center gap-2 md:gap-4 p-3 md:p-8 rounded-b-3xl md:rounded-r-3xl md:rounded-bl-none bg-white/5 backdrop-blur-xl shadow-lg z-[10] relative min-w-[20rem] md:max-w-[70rem]" onSubmit={handleSignup}>
                 <h3 className="mb-2 text-xl font-semibold text-center text-white md:text-2xl">
                     Sign Up
                 </h3>
@@ -118,7 +121,6 @@ function Signup() {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    onClick={handleSignup}
                     className="md:w-[90px] w-[50px] md:px-4 md:py-2 px-2 py-1 text-xs md:text-sm font-medium transition-transform rounded-full bg-gradient-to-r from-blue-700 to-violet-700 hover:scale-105"
                 >
                     Signup
