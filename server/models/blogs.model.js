@@ -24,16 +24,22 @@ const blogsSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
     },
-    comments: [
+    comments: {
+        type: [
+        {
+            text: { type: String, required: true },
+            commentedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            createdAt: { type: Date, default: Date.now },
+        },
+        ],
+        _id: true,
+    },
+    likes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment',
-        },
-    ],
-    likes: {
-        type: Number,
-        default: 0,
-    },
+            ref: "User"
+        }
+    ],      
     views: {
         type: Number,
         default: 0,

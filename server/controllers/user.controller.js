@@ -114,6 +114,7 @@ export const login = asyncHandler(async (req, res, next) => {
 // Get user profile
 export const getProfile = asyncHandler(async (req, res, next) => {
     const userId = req.user._id;
+    if(!userId) return next(new errorHandler("User not found", 400))
     const profile = await User.findById(userId);
     res
         .status(200)

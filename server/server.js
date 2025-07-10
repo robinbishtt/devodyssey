@@ -20,10 +20,6 @@ app.use(cookieParser());
 import userRoutes from './routes/user.routes.js';
 import blogRoutes from './routes/blogs.routes.js';
 
-app.use((req, res, next) => {
-    console.log(`[ROUTE] ${req.method} ${req.url}`);
-    next();
-});
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 

@@ -8,6 +8,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/get-profile", isAuthenticated, getProfile);
 router.put("/update-profile", isAuthenticated, updateProfile);
-router.post("/delete-account", isAuthenticated, deleteUser);
+router.delete("/delete-account", isAuthenticated, deleteUser);
 
 export default router;
