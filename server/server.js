@@ -20,8 +20,8 @@ app.use(cookieParser());
 import userRoutes from './routes/user.routes.js';
 import blogRoutes from './routes/blogs.routes.js';
 
-app.use('/api/users', userRoutes);
-app.use('/api/blogs', blogRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/blogs', blogRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,11 +1,10 @@
 import Blog from "../models/blogs.model.js";
-import User from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.utility.js";
 import { errorHandler } from "../utils/errorHandler.utility.js";
 
 // Get all blogs
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
-    const blogs = await Blog.find({}).sort({ createdAt: -1 });
+    const blogs = await Blog.find({}).sort({ createdAt: -1 }).populate("author", "username fullName avatar password");
     res.status(200).json({
         success: true,
         responseData: blogs,
@@ -14,7 +13,7 @@ export const getAllBlogs = asyncHandler(async (req, res, next) => {
 
 // Get a single blog
 export const getBlogById = asyncHandler(async (req, res, next) => {
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findById(req.params.id).populate("author", "username fullName avatar password");
     if (!blog) return next(new errorHandler("Blog not found", 404));
     res.status(200).json({
         success: true,
@@ -118,7 +117,7 @@ export const searchBlogs = asyncHandler(async (req, res, next) => {
             { title: { $regex: keyword, $options: "i" } },
             { authorName: { $regex: keyword, $options: "i" } },
         ],
-    }).sort({ createdAt: -1 });
+    }).sort({ createdAt: -1 }).populate("author", "username fullName avatar");
     res.status(200).json({
         success: true,
         responseData: blogs,
