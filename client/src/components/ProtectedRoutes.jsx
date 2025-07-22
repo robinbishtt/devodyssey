@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, screenLoading } = useSelector(
-        (state) => state.userReducer
+    const { isAuthenticated, loading } = useSelector(
+        (state) => state.authReducer
     );
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!screenLoading && !isAuthenticated) navigate('/login')
-    }, [isAuthenticated, screenLoading]);
+        if (!loading && !isAuthenticated) navigate('/login')
+    }, [isAuthenticated, loading, navigate]);
 
     return children;
 };

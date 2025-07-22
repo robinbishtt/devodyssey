@@ -17,7 +17,7 @@ function Login() {
 
     useEffect(() => {
         if (isAuthenticated) navigate("/");
-    }, [isAuthenticated]);
+    }, [isAuthenticated, navigate]);
 
     const handleInputChange = (e) => {
         setLoginData((prev) => ({

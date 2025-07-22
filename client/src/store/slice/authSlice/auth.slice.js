@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteUserThunk, getProfileThunk, loginUserThunk, registerUserThunk, updateProfileThunk } from "./auth.thunk";
+import { deleteUserThunk, getProfileThunk, loginUserThunk, logoutUserThunk, registerUserThunk, updateProfileThunk } from "./auth.thunk";
 
 const authSlice = createSlice({
     name: "auth",
@@ -35,11 +35,11 @@ const authSlice = createSlice({
             // Register
             .addCase(registerUserThunk.pending, (state) => { state.loading = true; })
             .addCase(registerUserThunk.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.user = action.payload.responseData.user;
+                state.loading = false;
+                state.user = action.payload.responseData.user;
                 state.token = action.payload.token;
                 state.isAuthenticated = action.payload.success;
-                })
+            })
             .addCase(registerUserThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.isAuthenticated = action.payload.success;
@@ -48,7 +48,29 @@ const authSlice = createSlice({
 
             // Get profile
             .addCase(getProfileThunk.fulfilled, (state, action) => {
-                state.user = action.payload.responseData.user;
+                state.user = action.payload.responseData;
+                state.isAuthenticated = !!action.payload.responseData?._id; // or true if user exists
+                state.loading = false;
+            })
+            .addCase(getProfileThunk.rejected, (state) => {
+                state.user = null;
+                state.isAuthenticated = false;
+                state.loading = false;
+            })
+
+            // Logout user
+            .addCase(logoutUserThunk.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(logoutUserThunk.fulfilled, (state) => {
+                state.loading = false;
+                state.user = null;
+                state.token = null;
+                state.isAuthenticated = false;
+            })
+            .addCase(logoutUserThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
             })
 
             // Delete user

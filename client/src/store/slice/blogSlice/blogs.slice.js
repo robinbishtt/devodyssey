@@ -24,7 +24,6 @@ const blogSlice = createSlice({
             .addCase(getAllBlogsThunk.fulfilled, (state, action) => {
                 state.loading = false;
                 state.blogList = action.payload;
-                console.log(action.payload)
             })
             .addCase(getAllBlogsThunk.rejected, (state, action) => {
                 state.loading = false;

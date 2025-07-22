@@ -48,7 +48,7 @@ const interactSlice = createSlice({
             .addCase(viewBlogThunk.pending, (state) => { state.loading = true; })
             .addCase(viewBlogThunk.fulfilled, (state, action) => {
                 state.loading = false;
-                state.views = action.payload.blog.views;
+                state.views = action.payload.responseData.views;
             })
             .addCase(viewBlogThunk.rejected, (state, action) => {
                 state.loading = false;

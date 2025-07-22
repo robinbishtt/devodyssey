@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      darkMode: "class",
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
+      },
       animation: {
         slide: "slide 30s linear infinite",
       },

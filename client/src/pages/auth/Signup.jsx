@@ -19,8 +19,8 @@ function Signup() {
     });
 
     useEffect(() => {
-      if (isAuthenticated) navigate("/");
-    }, [isAuthenticated]);
+        if (isAuthenticated) navigate("/");
+    }, [isAuthenticated, navigate]);
 
     const handleInputChange = (e) => {
         setSignupData((prev) => ({
@@ -34,7 +34,7 @@ function Signup() {
         if (signupData.password !== signupData.confirmPassword) {
             return toast.error("Password and confirm password do not match");
         }
-          const response = await dispatch(registerUserThunk(signupData));
+        const response = await dispatch(registerUserThunk(signupData));
         if (response?.payload?.success) {
             navigate("/");
         }

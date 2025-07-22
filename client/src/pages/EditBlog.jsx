@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { createBlogThunk } from "../store/slice/blogSlice/blogs.thunk";
 
-function Write() {
+function EditBlog() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [blogData, setBlogData] = useState({
@@ -43,7 +43,7 @@ function Write() {
 
     return (
         <div className="max-w-4xl p-6 mx-auto mt-20 text-white">
-            <h2 className="mb-6 text-xl font-bold text-center">Write a New Blog</h2>
+            <h2 className="mb-6 text-xl font-bold text-center">Edit Your Blog</h2>
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -84,4 +84,4 @@ function Write() {
     );
 }
 
-export default Write;
+export default EditBlog;

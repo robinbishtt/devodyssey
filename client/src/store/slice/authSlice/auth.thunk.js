@@ -45,7 +45,7 @@ export const loginUserThunk = createAsyncThunk(
 export const getProfileThunk = createAsyncThunk("auth/getProfile",
     async (_, { rejectWithValue }) => {
     try {
-        const response = await axiosInstance.get("/users/get-profile");
+        const response = await axiosInstance.get(("/users/get-profile"));
         return response.data;
     } catch (error) {
         console.error(error);
@@ -56,11 +56,13 @@ export const getProfileThunk = createAsyncThunk("auth/getProfile",
 
 // Update user profile thunk
 export const updateProfileThunk = createAsyncThunk("auth/updateProfile",
-    async ({ fullName, username }, { rejectWithValue }) => {
+    async ({ fullName, username, currentPassword, newPassword }, { rejectWithValue }) => {
     try {
         const response = await axiosInstance.put("users/update-profile", {
             fullName,
-            username
+            username,
+            currentPassword,
+            newPassword,
         });
         toast.info("Profile updated!");
         return response.data;
@@ -70,7 +72,24 @@ export const updateProfileThunk = createAsyncThunk("auth/updateProfile",
         toast.error(errorOutput);
         return rejectWithValue(errorOutput);
     }
-});
+    });
+
+// Logout user thunk
+export const logoutUserThunk = createAsyncThunk(
+    "auth/logout",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.post("users/logout");
+            toast.success("Logout successful!")
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            const errorOutput = error?.response?.data?.errMessage;
+            toast.error(errorOutput);
+            return rejectWithValue(errorOutput);
+        }
+    }
+);
 
 // Delete user account thunk
 export const deleteUserThunk = createAsyncThunk("users/deleteAccount",
