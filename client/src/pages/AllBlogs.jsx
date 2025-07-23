@@ -104,19 +104,19 @@ const AllBlogs = () => {
     <>
       {error && <p>Error: {error}</p>}
       {loading && <p>Loading blogs...</p>}
-      <div className="grid w-full grid-cols-1 gap-8 px-4 mx-auto mt-20 max-w-7xl lg:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-8 px-4 mx-auto mt-20 transition-all max-w-7xl lg:grid-cols-3 animate-fadeIn">
         <div className="col-span-2">
           <div className="mb-6">
             <div className="flex items-center w-full gap-2 px-4 py-2 mt-3 mb-4 text-sm border-0 rounded-full bg-gray-950">
-            <CgSearch size={20} color="gray" />
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search blogs..."
-              className="w-full text-white bg-transparent rounded-full outline-none placeholder:text-white/40"
+              <CgSearch size={20} color="gray" />
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Search blogs..."
+                className="w-full text-white bg-transparent rounded-full outline-none placeholder:text-white/40"
               />
-              </div>
+            </div>
             <div className="flex flex-wrap gap-2 mb-4">
               {allTags.map((tag, i) => (
                 <button

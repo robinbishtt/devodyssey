@@ -2,12 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { getAllBlogsThunk } from "../store/slice/blogSlice/blogs.thunk";
 import { viewBlogThunk } from "../store/slice/blogSlice/interactionSlice/interact.thunk";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiLike } from "react-icons/bi";
 import { FaEye, FaRegComment } from "react-icons/fa";
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';
 import backgroundImg from "../assets/background.jpg";
+import { devOdysseyTour } from "../components/utils/driverTour";
 
 function Home() {
   const navigate = useNavigate();
@@ -57,6 +58,15 @@ function Home() {
     }
   }, [Paused, currentIndex, blogs]);
 
+  const words = blog?.content?.split(/\s+/).length || 0;
+  const minutes = Math.ceil(words / 200);
+
+  useEffect(() => {
+    if (window.location.search.includes("tour") && !sessionStorage.getItem("tourRun")) {
+      devOdysseyTour();
+      sessionStorage.setItem("tourRun", "true");
+    }
+  }, []);
 
   function handleBlogClick(blog) {
     dispatch(viewBlogThunk({ id: blog._id }));
@@ -70,44 +80,45 @@ function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center min-h-[60vh] bg-[url(../../src/assets/background.jpg)] bg-center bg-cover relative">
-        <div className="flex flex-col items-center justify-center w-full min-h-[60vh] text-white bg-black/60 z-10">
-          <h1 className="flex gap-2 mb-2 text-4xl font-extrabold">
-            Welcome to <span className="text-blue-500">DevOdyssey!</span>
-          </h1>
-          <p className="mb-4 text-lg text-white/80">A modern blogging platform for developers and creators.</p>
-          <button
-            className="px-6 py-2 mt-2 text-lg font-semibold text-white transition bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-[1.04] shadow-lg"
-            onClick={() => navigate('/Signup')}
-          >
-            Get Started
-          </button>
-          <div className="flex gap-8 mt-8 text-center">
-            <div>
-              <div className="text-2xl font-bold">{blogList.length}</div>
-              <div className="text-xs text-white/60">Blogs</div>
+      <div className="relative min-h-screen animate-fadeIn bg-[url('../../src/assets/background.jpg')] bg-cover bg-center bg-no-repeat" id="hero">
+        <div className="flex flex-col items-center justify-center w-full min-h-screen text-white bg-gradient-to-tr from-black via-black to-gray-950/50">
+          <div className="z-10 flex flex-col items-center">
+            <h1 className="z-10 flex gap-2 mb-2 text-3xl font-extrabold md:text-4xl">
+              Welcome to <span className="text-blue-500">DevOdyssey!</span>
+            </h1>
+            <p className="mb-4 text-xs md:text-sm text-white/70">Your space to create, discover, and grow as a developer.</p>
+            <div className="flex -space-x-2">
+              {blogs.map((b, idx) => (
+                <div key={b._id || idx} className="p-2 mt-1 rounded-full bg-gray-900/50 h-9 w-9">
+                  <img src={b.author?.avatar || defaultAvatar} alt="Author profile" className="w-6 h-6 rounded-full " />
+                </div>
+              ))}
             </div>
-            <div>
-              <div className="text-2xl font-bold">{[...new Set(blogList.map(b => b.author?.username))].length}</div>
-              <div className="text-xs text-white/60">Authors</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">{blogList.reduce((acc, b) => acc + (b.views || 0), 0)}</div>
-              <div className="text-xs text-white/60">Total Views</div>
-            </div>
+            <span className="text-[8px] md:text-[10px] text-white/70 mt-2">Join the our community! and start your writing journey
+              <span className="font-bold"> {[...new Set(blogList.map(b => b.author?.username))].length}&#43;</span>
+              <span className="text-[8px] md:text-[10px] text-white/60"> authors.</span>
+            </span>
           </div>
+          <div className="absolute z-10 bottom-5">
+            <button
+              className="md:px-6 px-3 py-1 md:py-2 mt-5 text-sm md:text-md font-semibold text-white transition-all bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-[1.04] shadow-lg duration-200"
+              onClick={() => navigate('/Signup')}
+              >
+              Get Started
+            </button>
+              </div>
         </div>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 to-transparent" />
       </div>
 
       {/* About Section */}
       <div className="p-5 text-white bg-black">
-        <h3 className="mt-12 mb-5 text-2xl font-bold text-blue-400">What is DevOdyssey?</h3>
+        <h3 className="mt-12 mb-5 text-xl font-bold text-blue-400 md:text-2xl md:text-center">What is DevOdyssey?</h3>
         <p className="max-w-3xl mx-auto text-justify text-white/80">
-          DevOdyssey is a vibrant, open platform where developers and creators share their ideas, stories, and projects. Discover trending blogs, connect with authors, and grow your knowledge in a welcoming community.
+          DevOdyssey is a vibrant, open source platform where developers and creators share their ideas, stories, and projects. Discover trending blogs, connect with authors, and grow your knowledge in a welcoming community.
         </p>
 
-        <h3 className="mt-16 text-xl font-bold">About</h3>
+        <h3 className="mt-16 text-lg font-bold md:text-xl md:ml-52">About</h3>
         <div className="flex flex-col items-center justify-between max-w-4xl gap-5 mx-auto md:flex-row">
           <p className="flex-1 text-justify text-white/80">
             Whether you're a seasoned developer or just starting out, DevOdyssey provides the tools and audience to amplify your voice. Join us and start your journey today!
@@ -115,42 +126,55 @@ function Home() {
           <img className="w-[30%] rounded-lg" src={backgroundImg} alt="about" />
         </div>
 
-        {/* --- New: Partner Logos --- */}
-        <div className="flex flex-wrap items-center justify-center gap-8 my-12">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" className="h-10" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Redux.png" alt="Redux" className="h-10" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" className="h-10" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" className="h-10" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/MongoDB_Logo.svg" alt="MongoDB" className="h-10" />
+        {/* --- Tech Stack Used --- */}
+        <div className="flex flex-col">
+          <h3 className="mt-10 text-lg font-bold text-center md:text-xl">Tech Stack</h3>
+          <div className="flex flex-wrap items-center justify-center gap-8 mt-5">
+            <Link to="https://mongodb.com">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/MongoDB_Logo.svg/512px-MongoDB_Logo.svg.png?20190626143224" alt="MongoDB" className="h-10" />
+            </Link>
+            <Link to="https://expressjs.com">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express" className="h-10" />
+            </Link>
+            <Link to="https://react.dev">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" className="h-10" />
+            </Link>
+            <Link to="https://nodejs.org">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" className="h-10" />
+            </Link>
+          </div>
         </div>
 
-        {/* --- New: Testimonials --- */}
-        <h3 className="mt-16 mb-8 text-xl font-bold text-center text-blue-400">What our users say</h3>
+        {/* --- Testimonials --- */}
+        <h3 className="mt-16 mb-8 text-lg font-bold text-center text-white md:text-xl">What our users say</h3>
         <div className="grid max-w-5xl grid-cols-1 gap-6 mx-auto mb-12 md:grid-cols-3">
-          <div className="p-6 shadow-lg bg-gray-900/70 rounded-xl">
-            <p className="mb-2 text-white/80">“DevOdyssey helped me connect with other devs and share my journey. The UI is clean and the community is awesome!”</p>
+          <div className="p-6 shadow-lg bg-gray-900/50 rounded-xl">
+            <p className="mb-2 text-sm text-white/80 md:text-md">“DevOdyssey helped me connect with other devs and share my journey. The UI is clean and the community is awesome!”</p>
+            <hr className="mt-2 border-gray-700" />
             <div className="flex items-center gap-2 mt-4">
-              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=alice" className="w-8 h-8 rounded-full" alt="user" />
-              <span className="text-xs text-white/60">Alice, Full Stack Dev</span>
+              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=alice" className="w-5 h-5 rounded-full" alt="user" />
+              <span className="text-[10px] md:text-xs text-white/60">Alice, Full Stack Dev</span>
             </div>
           </div>
-          <div className="p-6 shadow-lg bg-gray-900/70 rounded-xl">
-            <p className="mb-2 text-white/80">“I love the featured blogs and the ability to customize my reading experience. Highly recommended!”</p>
-            <div className="flex items-center gap-2 mt-4">
-              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=bob" className="w-8 h-8 rounded-full" alt="user" />
-              <span className="text-xs text-white/60">Bob, Frontend Engineer</span>
+          <div className="p-6 shadow-lg bg-gray-900/50 rounded-xl">
+            <p className="mb-2 text-sm text-white/80 md:text-md">“I love the featured blogs and the ability to customize my reading experience. Highly recommended!”</p>
+            <hr className="mt-2 border-gray-700" />
+            <div className="flex items-center gap-2 mt-4 rounded-full">
+              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=bob" className="p-[3px] bg-black rounded-full h-7 w-7" alt="user" />
+              <span className="text-[10px] md:text-xs  text-white/60">Bob, Frontend Engineer</span>
             </div>
           </div>
-          <div className="p-6 shadow-lg bg-gray-900/70 rounded-xl">
-            <p className="mb-2 text-white/80">“A must-have platform for anyone who wants to learn, share, and grow in tech. The dark mode is a bonus!”</p>
+          <div className="p-6 shadow-lg bg-gray-900/50 rounded-xl">
+            <p className="mb-2 text-sm text-white/80 md:text-md">“A must-have platform for anyone who wants to learn, share, and grow in tech. The dark mode is a bonus!”</p>
+            <hr className="mt-2 border-gray-700" />
             <div className="flex items-center gap-2 mt-4">
-              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=carol" className="w-8 h-8 rounded-full" alt="user" />
-              <span className="text-xs text-white/60">Carol, Student</span>
+              <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=carol" className="p-[3px] bg-black rounded-full h-7 w-7" alt="user" />
+              <span className="text-[10px] md:text-xs  text-white/60">Carol, Student</span>
             </div>
           </div>
         </div>
 
-        {/* --- Existing: Featured Blogs --- */}
+        {/* --- Featured Blogs --- */}
         <h3 className="mt-16 mb-12 text-2xl font-bold text-center">Featured Blogs</h3>
         {loading && <p className="text-center text-white/70">Loading blogs...</p>}
         {error && <p className="text-center text-red-400">{error}</p>}
@@ -167,9 +191,12 @@ function Home() {
                 <div key={b._id || idx} className="flex flex-col gap-3 p-6 text-white rounded-xl bg-slate-900/50 hover:shadow-blue-500/30 hover:scale-[1.03] transition-transform cursor-pointer" onClick={() => handleBlogClick(b)}>
                   <div className="flex items-center gap-2 mb-2 text-xs" onClick={e => { e.stopPropagation(); handleClickAuthor(b); }}>
                     <img src={b.author?.avatar || defaultAvatar} alt="Author profile" className="w-6 h-6 border-l-2 rounded-full border-l-blue-600" />
-                    <span>@{b.author?.username}</span>
-                    <span>{dayjs(b.createdAt).fromNow()}</span>
+                    <span className="text-xs text-white">@{b.author?.username || "unknown"}</span>
+
+                    <span className="text-[10px] text-gray-400">{dayjs(b.createdAt).fromNow()}</span>
+                    <span className="text-[10px] text-gray-400">{minutes} mins read</span>
                   </div>
+                  <hr className="mb-2 border-gray-700 " />
                   <h3 className="text-lg font-bold">{b.title}</h3>
                   <p className="text-sm text-white/80 line-clamp-4">{b.content}</p>
                   <div className="flex items-center gap-4 mt-2 text-white/70">
@@ -178,17 +205,22 @@ function Home() {
                     <span className="flex items-center gap-1"><FaRegComment /> {b.comments?.length}</span>
                   </div>
                 </div>
-              ))
+              )
+              )
               : (
                 <div className="flex flex-col gap-3 p-6 text-white rounded-xl bg-slate-900/50">
-                  <div className="flex items-center gap-2 text-[10px]" onClick={() => handleClickAuthor(blog)}>
-                    <img src={blog.author?.avatar || defaultAvatar} alt="Author profile" className="w-4 h-4 border-l-2 rounded-full border-l-blue-600" />
-                    <p>@{blog.author?.username}</p>
-                    <p>{dayjs(blog.createdAt).fromNow()}</p>
+                  <div className="flex items-center justify-between gap-2" onClick={() => handleClickAuthor(blog)}>
+                    <div className="flex items-center gap-2">
+                      <img src={blog.author?.avatar || defaultAvatar} alt="Author profile" className="w-4 h-4 border-l-2 rounded-full border-l-blue-600" />
+                      <p className="text-xs text-white">@{blog.author?.username || "unknown"}</p>
+                      <p className="text-[10px] text-gray-400">{dayjs(blog.createdAt).fromNow()}</p>
+                    </div>
+                    <p className="text-[10px] text-gray-400">{minutes} mins read</p>
                   </div>
+                  <hr className="border-gray-800 " />
                   <div className="flex flex-col gap-2 text-white bg-transparent rounded-xl" onClick={() => handleBlogClick(blog)}>
-                    <h3 className="text-lg font-bold">{blog.title}</h3>
-                    <p className="text-sm text-white line-clamp-4">{blog.content}</p>
+                    <h3 className="font-bold text-md md:text-lg">{blog.title}</h3>
+                    <p className="text-xs text-white md:text-sm line-clamp-4">{blog.content}</p>
                     <p className="flex items-center gap-2 text-sm text-white/70">
                       <BiLike /> {blog.likes?.length}
                       <FaEye /> {blog.views}
@@ -228,16 +260,6 @@ function Home() {
             ))}
           </div>
         )}
-
-        {/* --- New: Newsletter Signup --- */}
-        <div className="flex flex-col items-center max-w-xl p-8 mx-auto mt-20 mb-10 shadow-lg bg-gray-900/80 rounded-2xl">
-          <h3 className="mb-2 text-xl font-bold text-blue-400">Stay in the loop!</h3>
-          <p className="mb-4 text-center text-white/70">Subscribe to our newsletter for the latest blogs, platform updates, and more.</p>
-          <form className="flex flex-col items-center w-full gap-3 md:flex-row md:gap-2">
-            <input type="email" required placeholder="Your email address" className="w-full px-4 py-2 text-white bg-gray-800 rounded-full outline-none md:w-auto" />
-            <button type="submit" className="px-6 py-2 font-semibold text-white transition bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-[1.04] shadow-lg">Subscribe</button>
-          </form>
-        </div>
       </div>
     </>
   );

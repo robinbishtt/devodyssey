@@ -4,8 +4,8 @@ import { deleteUserThunk, logoutUserThunk } from "../../../store/slice/authSlice
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { MdWarning } from "react-icons/md";
-import { FaInfo, FaMoon } from "react-icons/fa";
-import { BiBrightness, BiCode } from "react-icons/bi";
+import { FaInfo } from "react-icons/fa";
+import { BiCode } from "react-icons/bi";
 import { applyThemeClass, getStoredTheme } from "../../../components/utils/theme";
 
 const SettingsPage = () => {
@@ -46,30 +46,29 @@ const SettingsPage = () => {
     };
 
     return (
-        <div className="h-full mx-auto text-white">
-            <div className="flex flex-col items-center p-6 shadow-lg bg-gray-950/30 rounded-3xl">
+        <div className="flex flex-col items-center h-full mx-auto text-white">
 
                 <h2 className="text-xl font-bold">Settings</h2>
 
-                <div className="w-full mt-8 space-y-3 text-sm text-center text-white/70">
-                    <div className="flex flex-col items-center gap-2 p-3 bg-gray-950/50 rounded-xl">
+                <div className="w-full mt-3 space-y-3 text-sm text-center text-white/70">
+                    <div className="flex flex-col items-center gap-2 p-3 rounded-xl">
                         <span className="font-semibold text-blue-400">Personalization</span>
-                        <div className="flex flex-col w-full gap-2">
+                    <div className="flex flex-col w-full gap-2">
                             <label className="flex items-center justify-between w-full mt-6 text-sm text-white/70">
                                 Theme:
                                     <select
                                         value={selectedTheme}
                                         onChange={(e) => handleThemeChange(e.target.value)}
-                                        className="px-3 py-1 text-xs text-white rounded-full bg-gray-900/50 focus:outline-none"
+                                        className="px-3 py-1 text-xs text-white rounded-full bg-gray-950/80 focus:outline-none"
                                     >
-                                        <option value="light"><BiBrightness /> Light</option>
-                                        <option value="dark"><FaMoon /> Dark</option>
+                                        <option value="light">Light</option>
+                                        <option value="dark"> Dark</option>
                                     </select>
                             </label>
-                            <div className="h-full mx-auto text-white">
-                                <label className="flex items-center justify-between">
+                        <div className="flex flex-col w-full gap-2">
+                            <label className="flex items-center justify-between w-full text-sm text-white/70">
                                     Font Size:
-                                    <select value={fontSize} onChange={e => setFontSize(e.target.value)} className="p-1 text-xs text-white border-0 rounded-full outline-none bg-gray-900/50">
+                                    <select value={fontSize} onChange={e => setFontSize(e.target.value)} className="p-1 text-xs text-white border-0 rounded-full outline-none bg-gray-950/80">
                                         <option value="small">Small</option>
                                         <option value="base">Base</option>
                                         <option value="large">Large</option>
@@ -77,25 +76,25 @@ const SettingsPage = () => {
                                 </label>
                                 <label className="flex items-center justify-between">
                                     Blog Layout:
-                                    <select value={layout} onChange={e => setLayout(e.target.value)} className="p-1 text-xs text-white border-0 rounded-full outline-none bg-gray-900/50">
+                                    <select value={layout} onChange={e => setLayout(e.target.value)} className="p-1 text-xs text-white border-0 rounded-full outline-none bg-gray-950/80">
                                         <option value="list">List</option>
                                         <option value="grid">Grid</option>
                                     </select>
                                 </label>
                             </div>
                         </div>
-                        <p className="flex items-center justify-center gap-2 p-2 bg-gray-950/50 rounded-xl"><BiCode size={24} color="#007bff" />Source Code → <a href="https://github.com/aaditya-dubey09/devodyssey" className="text-white hover:text-blue-600" target="_blank">DevOdyssey</a></p>
-                        <div className="p-2 bg-gray-950/50 rounded-xl">
+                        <p className="flex items-center justify-center gap-2 p-2 rounded-xl"><BiCode size={24} color="#007bff" />Source Code → <a href="https://github.com/aaditya-dubey09/devodyssey" className="text-white hover:text-blue-600" target="_blank">DevOdyssey</a></p>
+                        <div className="p-2 rounded-xl">
                             <span className="flex items-center justify-center mb-3 font-semibold text-blue-400">
                                 <FaInfo size={12} /> Pages Info</span>
                             <div className="flex flex-col gap-3 text-left text-justify break-words">
-                                <p><span className="tracking-wider">Home → </span>contains the hero section, featured blogs, testimonials, and featured blogs - which is selected based on likes and views.</p>
-                                <p><span className="tracking-wider">Blogs → </span>has the list of all blogs, popular blogs and top creators. Top blogs are selected based on engagement such as likes and views and top users are selected based on how many blogs they have written, and how many likes and views they have received.</p>
-                                <p><span className="tracking-wider">Dashboard → </span>is your personal space to manage all your blogs, analytics, settings and profile.</p>
-                                <p><span className="tracking-wider">Write → </span>page is where you publish your blogs from and start your journey.</p>
+                                <p><span className="tracking-wider">Home </span>contains the hero section, featured blogs, testimonials, and featured blogs - which is selected based on likes and views.</p>
+                                <p><span className="tracking-wider">Blogs page </span>has the list of all blogs, popular blogs and top creators. popular blogs and top creators are selected based on engagement such as likes, views and total blogs published.</p>
+                                <p><span className="tracking-wider">Dashboard </span>is your personal space to manage all your blogs, analytics, settings and profile.</p>
+                                <p><span className="tracking-wider">Write </span>page is where you publish your blogs from and share your journey.</p>
                             </div>
                         </div>
-                        <p className="p-2 bg-gray-950/50 rounded-xl">About → DevOdyssey is an open platform where developers share ideas.</p>
+                        <p className="p-2 rounded-xl">About → DevOdyssey is an open source platform where developers share ideas.</p>
                     </div>
 
                     <div className="p-3 mt-5 text-sm bg-gradient-to-br from-black to-red-500/60 rounded-3xl">
@@ -135,7 +134,6 @@ const SettingsPage = () => {
                         </div>
                     )}
                 </div>
-            </div>
         </div> // Idea: adding triangles to the featured section and logo to navbar both made by code
     );
 };

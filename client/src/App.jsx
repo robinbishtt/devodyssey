@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const current = getStoredTheme();
     applyThemeClass(current);
-  }, []);
+  }, [])
 
   return (
     <>

@@ -5,6 +5,63 @@
 /* Custom global tweaks */
 html,
 body {
-  @apply bg-black m-0 p-0;
+  @apply p-0 m-0 bg-black;
   font-family: 'Poppins', sans-serif;
+}
+
+.driver-popover.tour-custom {
+  background-color: #0155d3d8;
+  color: #fff;
+}
+
+.driver-popover.tour-custom .driver-popover-title {
+  font-size: 20px;
+}
+
+.driver-popover.tour-custom .driver-popover-title {
+  color: #fff;
+}
+
+.driver-popover.tour-custom .driver-popover-description {
+  color: #dadada;
+}
+
+.driver-popover.tour-custom .driver-popover-progress-text {
+  color: #bdbdbd;
+}
+
+.driver-popover.tour-custom .driver-popover-prev-btn,
+.driver-popover.tour-custom .driver-popover-next-btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #000;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  text-shadow: none;
+  font-size: 12px;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.driver-popover.tour-custom button:hover {
+  color: #bebebe;
+}
+
+.driver-popover.tour-custom .driver-popover-navigation-btns {
+  justify-content: flex-end;
+  gap: 3px;
+}
+
+.driver-popover.tour-custom .driver-popover-close-btn {
+  color: #ffffff;
+  background: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 50px;
+}
+
+.driver-popover.tour-custom .driver-popover-close-btn:hover {
+  color: #ce0000;
 }

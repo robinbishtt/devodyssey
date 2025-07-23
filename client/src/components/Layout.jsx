@@ -8,11 +8,8 @@ export default function Layout() {
     const hideLayout =
         location.pathname === "/Login" || location.pathname === "/login" || location.pathname === "/Signup" || location.pathname === "/signup";
 
-    // Set theme class on root div for Tailwind
-    // const themeClass = theme === "dark" ? "dark" : theme === "light" ? "light" : "";
-
     return (
-        <div className={`min-h-screen`}>
+        <div className='min-h-screen'>
             {!hideLayout && <Navbar />}
             <RouteLoader />
             <main>

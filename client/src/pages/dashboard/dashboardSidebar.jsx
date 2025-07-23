@@ -50,10 +50,10 @@ const DashboardSidebar = () => {
                             <MdSettings size={18} /> Settings
                         </div>
                     </Link>
-                </nav>
-                <button type='button' className='flex items-center gap-2 p-1 text-sm bg-red-600 border-0 rounded-full bottom-10 hover:bg-red-700 active:bg-red-800' onClick={handleLogout}>
+                <button type='button' className='flex items-center gap-1 px-2 py-1 text-sm text-white bg-red-600 border-0 rounded-full bottom-10 hover:bg-red-700 active:bg-red-800' onClick={handleLogout}>
                     <BiLogOut />Logout
                 </button>
+                </nav>
             </div>
         </>
     )

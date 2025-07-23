@@ -7,6 +7,8 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 import ShareButton from '../components/ShareButton'
+import { BiLike } from 'react-icons/bi'
+import { FaEye, FaRegComment } from 'react-icons/fa'
 
 const AuthorPage = () => {
     const dispatch = useDispatch()
@@ -165,18 +167,36 @@ const AuthorPage = () => {
             {/* Recommended blogs */}
             <h3 className="mt-12 mb-4 text-sm font-bold text-blue-400">Recommended Blogs</h3>
             <div className="flex flex-col gap-4 mb-8">
-                {recommendedBlogs.map(blog => (
-                    <div key={blog._id} className="p-4 transition cursor-pointer bg-gray-950/60 rounded-xl hover:scale-105 hover:shadow-md hover:shadow-blue-500/30" onClick={() => handleBlogClick(blog)}>
-                        <div className="flex items-center gap-2 mb-2">
+                {recommendedBlogs.map(blog => {
+                    const words = blog?.content?.split(/\s+/).length || 0;
+                    const minutes = Math.ceil(words / 200);
+                    return (
+                        <div key={blog._id} className="p-3 transition transition-transform duration-300 ease-in-out cursor-pointer bg-gray-950/60 rounded-xl hover:scale-[1.03] hover:shadow-md hover:shadow-blue-700/50">
+                            <div className="text-xs sm:flex-row">
+                                <div className='flex items-center justify-between gap-2 mb-2'>
+                            <div className="flex items-center gap-2 cursor-pointer">
                             <img src={blog.author?.avatar || `https://api.dicebear.com/6.x/avataaars/svg?seed=${blog.author?.username}`} alt={blog.author?.username} className="w-4 h-4 border-l-2 rounded-full border-l-blue-600" />
                             <span className="text-[10px] text-gray-400">@{blog.author?.username}</span>
-                            <span className="text-[10px] text-white/60">{dayjs(blog.createdAt).fromNow()}</span>
+                            <span className="text-[10px] text-gray-400">{dayjs(blog.createdAt).fromNow()}</span>
+                            </div>
+                            <p className="text-[10px] text-gray-400">{minutes} mins read</p>
+                                </div>
+                            <div onClick={() => handleBlogClick(blog)}>
+                                <hr className="mb-2 border-gray-700 " />
+                                <div className='flex flex-col gap-2'>
+                                <h2 className="font-bold text-white">{blog.title}</h2>
+                                <p className="text-xs text-white/60 md:min-w-[20rem] lg:min-w-[40rem] sm:min-w-[20rem] line-clamp-4">{blog.content}</p>
+                                    </div>
+                                <p className="flex items-center gap-2 mt-2 mb-2 text-sm text-white cursor-pointer">
+                                    <span className="flex items-center gap-2 hover:text-white/70"><BiLike /> {blog.likes?.length}</span>
+                                    <span className="flex items-center gap-2 hover:text-white/70"><FaEye /> {blog.views}</span>
+                                    <span className="flex items-center gap-2 hover:text-white/70"><FaRegComment /> {blog.comments?.length}</span>
+                                </p>
+                            </div>
+
                         </div>
-                        <hr className='mb-2 border-gray-700' />
-                        <div className="font-bold">{blog.title}</div>
-                        <div className="text-xs text-white/70 line-clamp-2">{blog.content}</div>
-                    </div>
-                ))}
+                    </div>)
+                })}
             </div>
         </div>
     )

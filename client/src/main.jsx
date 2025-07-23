@@ -24,6 +24,7 @@ import MyBlogsPage from './pages/dashboard/nestedPages/myBlogsPage';
 
 import "./App.css";
 import UserProfile from "./pages/UserProfile.jsx";
+import EditBlog from "./pages/EditBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
           { path: "profile", element: <ProfilePage /> },
           { path: "myblogs", element: <MyBlogsPage /> },
           { path: "settings", element: <SettingsPage /> },
+          { path: "edit/:blogId", element: <EditBlog /> },
         ],
       },
       {
