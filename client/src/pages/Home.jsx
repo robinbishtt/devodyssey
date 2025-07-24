@@ -7,8 +7,9 @@ import { BiLike } from "react-icons/bi";
 import { FaEye, FaRegComment } from "react-icons/fa";
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';
-import backgroundImg from "../assets/background.jpg";
 import { devOdysseyTour } from "../components/utils/driverTour";
+import bgImage from "../assets/background.jpg";
+import aboutImage from "../assets/about.png";
 
 function Home() {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative min-h-screen animate-fadeIn bg-[url('../../src/assets/background.jpg')] bg-cover bg-center bg-no-repeat" id="hero">
+      <div className="relative min-h-screen bg-center bg-no-repeat bg-cover animate-fadeIn" id="hero" style={{ backgroundImage: `url(${bgImage})` }}>
         <div className="flex flex-col items-center justify-center w-full min-h-screen text-white bg-gradient-to-tr from-black via-black to-gray-950/50">
           <div className="z-10 flex flex-col items-center">
             <h1 className="z-10 flex gap-2 mb-2 text-3xl font-extrabold md:text-4xl">
@@ -123,7 +124,7 @@ function Home() {
           <p className="flex-1 text-justify text-white/80">
             Whether you're a seasoned developer or just starting out, DevOdyssey provides the tools and audience to amplify your voice. Join us and start your journey today!
           </p>
-          <img className="w-[30%] rounded-lg" src={backgroundImg} alt="about" />
+          <img className="w-[30%] rounded-lg" src={aboutImage} alt="about" />
         </div>
 
         {/* --- Tech Stack Used --- */}

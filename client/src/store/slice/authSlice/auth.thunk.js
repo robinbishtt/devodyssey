@@ -56,11 +56,12 @@ export const getProfileThunk = createAsyncThunk("auth/getProfile",
 
 // Update user profile thunk
 export const updateProfileThunk = createAsyncThunk("auth/updateProfile",
-    async ({ fullName, username, currentPassword, newPassword }, { rejectWithValue }) => {
+    async ({ fullName, username, bio, currentPassword, newPassword }, { rejectWithValue }) => {
     try {
         const response = await axiosInstance.put("users/update-profile", {
             fullName,
             username,
+            bio,
             currentPassword,
             newPassword,
         });

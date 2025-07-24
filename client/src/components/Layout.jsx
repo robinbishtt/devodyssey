@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import RouteLoader from "../RouteLoader";
+import MetaManager from "./utils/metaManager";
 
 export default function Layout() {
     const location = useLocation();
@@ -10,6 +11,7 @@ export default function Layout() {
 
     return (
         <div className='min-h-screen'>
+            <MetaManager />
             {!hideLayout && <Navbar />}
             <RouteLoader />
             <main>

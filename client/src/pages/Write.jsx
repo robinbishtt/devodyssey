@@ -50,16 +50,16 @@ function Write() {
                     placeholder="Title"
                     value={blogData.title}
                     onChange={(e) => setBlogData({ ...blogData, title: e.target.value })}
-                    className="px-4 py-2 text-sm text-white bg-gray-900 rounded-full outline-none placeholder:text-gray-500"
+                    className="px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
                 />
                 <textarea
                     placeholder="Content"
                     rows={6}
                     value={blogData.content}
                     onChange={(e) => setBlogData({ ...blogData, content: e.target.value })}
-                    className="px-4 py-2 text-sm text-white bg-gray-900 outline-none rounded-xl placeholder:text-gray-500"
+                    className="px-4 py-2 text-sm text-white outline-none bg-gray-950 rounded-xl placeholder:text-gray-500"
                 />
-                <div className="flex flex-wrap items-center gap-2 px-3 py-2 bg-gray-900 rounded-xl">
+                <div className="flex flex-wrap items-center gap-2 px-3 py-2 bg-gray-950 rounded-xl">
                     {blogData.tags.map((tag, i) => (
                         <span key={i} className="flex items-center gap-1 px-3 py-1 text-xs text-white bg-gray-800 rounded-full">
                             #{tag}
@@ -69,13 +69,13 @@ function Write() {
                     <input
                         type="text"
                         onKeyDown={handleTagInput}
-                        placeholder="Add tags (press Enter)..."
+                        placeholder="Add tags (comma separated)..."
                         className="px-2 py-1 text-xs text-white bg-transparent outline-none placeholder:text-gray-400"
                     />
                 </div>
                 <button
                     type="submit"
-                    className="px-6 py-2 mt-6 font-semibold text-white transition-all duration-200 bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-[1.02]"
+                    className="px-6 py-2 mt-6 font-semibold text-white transition-all duration-200 bg-blue-700 rounded-full hover:bg-blue-800 hover:scale-[1.02]"
                 >
                     Publish Blog
                 </button>

@@ -39,6 +39,7 @@ const UserProfile = () => {
                     <img src={avatar} alt="Avatar" className="w-24 h-24 mb-4 border-l-4 rounded-full border-l-blue-600" />
                     <h2 className="text-xl font-bold">{user.fullName}</h2>
                     <p className="text-sm text-gray-400">@{user.username}</p>
+                    <p className="text-sm text-white">{user.bio || "No bio yet"}</p>
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -58,7 +59,7 @@ const UserProfile = () => {
                     <p className="text-sm text-gray-400">Total Comments</p>
                 </div>
             </div>
-            <h2 className="mb-6 text-xl font-bold text-center">My Blogs</h2>
+            <h2 className="mt-8 mb-6 text-xl font-bold text-center">My Blogs</h2>
             <div className="flex flex-col gap-4">
                 {userBlogs.length > 0 ? userBlogs.map(blog => (
                     <div key={blog._id} className="p-5 transition-transform duration-300 ease-in-out border-l-2 border-blue-600 bg-black shadow-md hover:shadow-blue-500/30 rounded-xl hover:scale-[1.05]"

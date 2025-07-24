@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { CgProfile } from 'react-icons/cg';
 import { FaPenNib } from 'react-icons/fa';
-import { BiHome, BiSolidHome } from 'react-icons/bi';
+import { BiSolidHome } from 'react-icons/bi';
 
 function Navbar() {
 

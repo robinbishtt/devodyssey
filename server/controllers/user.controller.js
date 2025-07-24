@@ -129,6 +129,9 @@ export const updateProfile = asyncHandler(async (req, res, next) => {
     const { fullName, username, currentPassword, newPassword } = req.body;
     const user = await User.findById(userId);
     if (!user) return next(new errorHandler("User not found", 404));
+    if (req.body.bio !== undefined) {
+        user.bio = req.body.bio;
+    }
     if (newPassword) {
         if (!currentPassword) {
             return next(new errorHandler("Current password is required to change password", 400));

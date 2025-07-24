@@ -4,7 +4,7 @@ import { errorHandler } from "../utils/errorHandler.utility.js";
 
 // Get all blogs
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
-    const blogs = await Blog.find({}).sort({ createdAt: -1 }).populate("author", "username fullName avatar password");
+    const blogs = await Blog.find({}).sort({ createdAt: -1 }).populate("author", "username fullName bio avatar").populate("comments.commentedBy", "username avatar");;
     res.status(200).json({
         success: true,
         responseData: blogs,
@@ -13,7 +13,7 @@ export const getAllBlogs = asyncHandler(async (req, res, next) => {
 
 // Get a single blog
 export const getBlogById = asyncHandler(async (req, res, next) => {
-    const blog = await Blog.findById(req.params.id).populate("author", "username fullName avatar password");
+    const blog = await Blog.findById(req.params.id).populate("author", "username fullName bio avatar").populate("comments.commentedBy", "username avatar");
     if (!blog) return next(new errorHandler("Blog not found", 404));
     res.status(200).json({
         success: true,
@@ -64,13 +64,13 @@ export const commentOnBlog = asyncHandler(async (req, res, next) => {
         req.params.id,
         { $push: { comments: { text, commentedBy: req.user._id } } },
         { new: true, runValidators: true }
-    );
+    ).populate("comments.commentedBy", "username avatar");
     if (!blog) return next(new errorHandler("Blog not found", 404));
     res.status(200).json({
         success: true,
         responseData: blog,
     });
-});  
+});
 
 // Delete a comment
 export const deleteComment = asyncHandler(async (req, res, next) => {
@@ -117,7 +117,7 @@ export const searchBlogs = asyncHandler(async (req, res, next) => {
             { title: { $regex: keyword, $options: "i" } },
             { authorName: { $regex: keyword, $options: "i" } },
         ],
-    }).sort({ createdAt: -1 }).populate("author", "username fullName avatar");
+    }).sort({ createdAt: -1 }).populate("author", "username fullName blog avatar");
     res.status(200).json({
         success: true,
         responseData: blogs,

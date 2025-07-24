@@ -9,6 +9,7 @@ const ProfilePage = () => {
     const [formData, setFormData] = useState({
         fullName: user?.fullName || "",
         username: user?.username || "",
+        bio: user?.bio || "",
     })
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -22,6 +23,7 @@ const ProfilePage = () => {
         const payload = {
             fullName: formData.fullName,
             username: formData.username,
+            bio: formData.bio,
         };
         if (newPassword) {
             if (!currentPassword) {
@@ -52,8 +54,9 @@ const ProfilePage = () => {
                 <img src={avatar} alt="Avatar" className="w-24 h-24 mb-4 border-l-4 rounded-full border-l-blue-600" />
                 {!editing ? (
                     <>
-                        <h2 className="text-xl font-bold">{user.fullName}</h2>
+                        <h2 className="text-xl font-bold text-white">{user.fullName}</h2>
                         <p className="text-sm text-gray-400">@{user.username}</p>
+                        <p className="text-sm text-white">{user.bio || "No bio yet"}</p>
                         <button
                             className="px-4 py-2 mt-4 text-sm text-white transition bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-105"
                             onClick={() => setEditing(true)}
@@ -67,27 +70,33 @@ const ProfilePage = () => {
                             type="text"
                             value={formData.fullName}
                             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 rounded-full outline-none placeholder:text-gray-500"
+                            className="w-full px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
                         />
                         <input
                             type="text"
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 rounded-full outline-none placeholder:text-gray-500"
-                        />
+                            className="w-full px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
+                            />
+                            <input
+                                type="text"
+                            value={formData.bio}
+                            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                                className="w-full px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
+                            placeholder='add bio'/>
                         <input
                             type="password"
                             placeholder='current password'
                             value={currentPassword}
                             onChange={e => setCurrentPassword(e.target.value)}
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 rounded-full outline-none placeholder:text-gray-500"
+                            className="w-full px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
                         />
                         <input
                             type="password"
                             placeholder='new password'
                             value={newPassword}
                             onChange={e => setNewPassword(e.target.value)}
-                            className="w-full px-4 py-2 text-sm text-white bg-gray-900 rounded-full outline-none placeholder:text-gray-500"
+                            className="w-full px-4 py-2 text-sm text-white rounded-full outline-none bg-gray-950 placeholder:text-gray-500"
                         />
                         {error && <p className="text-sm text-red-400">{error}</p>}
                         <button

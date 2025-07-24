@@ -9,6 +9,8 @@ import { BiLike } from 'react-icons/bi';
 import { FaEye, FaRegComment } from 'react-icons/fa';
 import { MdOutlineDelete } from "react-icons/md";
 import ShareButton from '../components/ShareButton';
+import { CgProfile } from 'react-icons/cg';
+import PageHeader from '../components/PageHeader';
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -41,11 +43,12 @@ const Blog = () => {
         }
     };
 
-    const handleAddComment = () => {
+    const handleAddComment = (e) => {
         if (!commentText.trim() || !blog?._id) return;
         dispatch(addCommentThunk({ id: blog._id, text: commentText })).then(() => {
             dispatch(getSingleBlogThunk({ id: blog._id }));
         });
+        e.key === "Enter" && e.target.value.trim() !== ""
         setCommentText("");
     };
 
@@ -67,8 +70,8 @@ const Blog = () => {
 
     return (
         <div className="max-w-4xl p-6 mx-auto mt-20 text-white">
+            <PageHeader className={`text-xs`} />
             <h2 className="mb-8 text-2xl font-bold text-center">{blog.title}</h2>
-
             <div className="flex flex-col items-center justify-between gap-2 mb-4 text-xs sm:flex-row">
                 <div className="flex items-center gap-2 cursor-pointer" onClick={handleClickAuthor}>
                     <img
@@ -113,14 +116,20 @@ const Blog = () => {
                 <ShareButton blog={blog} />
             </div>
 
-            <div className="p-6 mt-6 bg-gray-900 rounded-3xl">
-                <h3 className="mb-4 text-sm font-bold text-blue-400">Comments</h3>
+            <div className="p-6 mt-6 rounded bg-blue-950/5">
+                <h3 className="mb-4 text-sm font-bold text-white/90">Comments</h3>
                 {blog.comments?.length > 0 ? blog.comments.map((comment) => (
                     <div key={comment._id} className="mb-4">
-                        <p className="text-xs text-gray-500">{dayjs(comment.createdAt).fromNow()}</p>
-                        <h4 className="text-xs font-semibold text-blue-400">Commented by: {comment.commentedBy}</h4>
+                        <div className='flex items-center gap-1'
+                            onClick={handleClickAuthor}>
+                            {comment ? 
+                            <img src={comment.commentedBy.avatar || defaultAvatar} alt="avatar" className="w-4 h-4 rounded-full" />
+                            : <CgProfile className="w-4 h-4 rounded-full" />}
+                            <h4 className="text-[10px] font-semibold text-white">@{comment.commentedBy.username || 'unknown' }</h4>
+                            <p className="text-[9px] text-gray-500 ml-1">{dayjs(comment.createdAt).fromNow()}</p>
+                        </div>
                         <div className="flex items-center justify-between mt-1">
-                            <p className="text-sm text-gray-300">{comment.text}</p>
+                            <p className="ml-[23px] text-xs text-gray-300">{comment.text}</p>
                             {user?._id === blog.author?._id && (
                                 <button
                                     onClick={() => handleDeleteComment(comment._id)}
@@ -133,21 +142,33 @@ const Blog = () => {
                     </div>
                 )) : <p className="text-sm text-gray-400">No comments yet on this blog.</p>}
 
-                <div className="flex items-center justify-between w-full px-3 py-2 mt-4 rounded-full bg-gray-950/50">
+                <div className="flex items-center justify-between w-full py-2 mt-4 bg-transparent rounded-full">
+                    <div>
+                        {user ? (
+                            <img
+                                src={user.avatar}
+                                alt="Author profile"
+                                className="w-4 h-4 mr-2 rounded-full cursor-pointer "
+                            />
+                        ) : (
+                            <CgProfile className="w-4 h-4 mr-2 rounded-full cursor-pointer" />
+                        )}
+                    </div>
                     <input
                         type="text"
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
-                        className="w-full text-xs text-white bg-transparent border-none outline-none placeholder:text-gray-400"
+                        className="z-10 w-full text-xs text-white bg-transparent border-none outline-none placeholder:text-gray-400"
                         placeholder="Add a comment..."
                     />
                     <button
                         onClick={handleAddComment}
-                        className="p-2 transition-all duration-200 bg-black rounded-full hover:scale-110 hover:rotate-45"
+                        className="z-10 p-2 transition-all duration-200 bg-transparent rounded-full hover:scale-110 hover:rotate-45"
                     >
                         <FaArrowUp color="blue" size={12} />
                     </button>
                 </div>
+                <hr className='w-full border-gray-700' />
             </div>
 
             <h3 className="mt-12 mb-4 text-sm font-bold text-blue-400">Recommended Blogs</h3>

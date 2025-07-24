@@ -49,7 +49,7 @@ const authSlice = createSlice({
             // Get profile
             .addCase(getProfileThunk.fulfilled, (state, action) => {
                 state.user = action.payload.responseData;
-                state.isAuthenticated = !!action.payload.responseData?._id; // or true if user exists
+                state.isAuthenticated = !!action.payload.responseData?._id;
                 state.loading = false;
             })
             .addCase(getProfileThunk.rejected, (state) => {

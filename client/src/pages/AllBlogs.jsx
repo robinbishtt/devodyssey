@@ -8,6 +8,7 @@ import { FaEye, FaRegComment } from "react-icons/fa";
 import ShareButton from "../components/ShareButton";
 import dayjs from "dayjs";
 import { CgSearch } from "react-icons/cg";
+import PageHeader from "../components/PageHeader";
 
 const AllBlogs = () => {
   const dispatch = useDispatch();
@@ -104,10 +105,11 @@ const AllBlogs = () => {
     <>
       {error && <p>Error: {error}</p>}
       {loading && <p>Loading blogs...</p>}
-      <div className="grid w-full grid-cols-1 gap-8 px-4 mx-auto mt-20 transition-all max-w-7xl lg:grid-cols-3 animate-fadeIn">
+      <div className="grid w-full grid-cols-1 gap-4 px-4 mx-auto mt-20 transition-all max-w-7xl lg:grid-cols-3 animate-fadeIn">
+              <PageHeader className={`text-xs`} />
         <div className="col-span-2">
           <div className="mb-6">
-            <div className="flex items-center w-full gap-2 px-4 py-2 mt-3 mb-4 text-sm border-0 rounded-full bg-gray-950">
+            <div className="flex items-center w-full gap-2 px-4 py-2 mb-4 text-sm border-0 rounded-full bg-gray-950">
               <CgSearch size={20} color="gray" />
               <input
                 type="text"

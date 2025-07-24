@@ -43,6 +43,7 @@ const AuthorPage = () => {
                     _id: acc._id || curr._id,
                     username: acc.username || curr.username,
                     fullName: acc.fullName || curr.fullName,
+                    bio: acc.bio || curr.bio,
                     avatar: acc.avatar || curr.avatar,
                 };
             }, {});
@@ -51,6 +52,7 @@ const AuthorPage = () => {
                 _id: merged._id || undefined,
                 username: merged.username || username,
                 fullName: merged.fullName || merged.username || username,
+                bio: merged.bio || undefined,
                 avatar: merged.avatar || `https://api.dicebear.com/6.x/avataaars/svg?seed=${username}`,
             };
         }
@@ -58,6 +60,7 @@ const AuthorPage = () => {
         return {
             username,
             fullName: username,
+            bio: 'No bio yet',
             avatar: `https://api.dicebear.com/6.x/avataaars/svg?seed=${username}`
         };
     }, [blogList, username]);
@@ -108,6 +111,7 @@ const AuthorPage = () => {
                 <img src={authorInfo.avatar || defaultAvatar} alt="Author Avatar" className="w-24 h-24 border-l-4 rounded-full border-l-blue-600" />
                 <h2 className="text-xl font-bold">{authorInfo.fullName}</h2>
                 <p className="text-sm text-gray-400">@{authorInfo.username}</p>
+                <p className="text-sm text-white">{authorInfo.bio || "No bio yet"}</p>
                 <div className="flex gap-6 mt-2 text-sm text-center text-white/80">
                     <p>{blogsByAuthor.length} blogs</p>
                     <p>{totalViews} views</p>
