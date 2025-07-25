@@ -106,8 +106,8 @@ const AllBlogs = () => {
       {error && <p>Error: {error}</p>}
       {loading && <p>Loading blogs...</p>}
       <div className="grid w-full grid-cols-1 gap-4 px-4 mx-auto mt-20 transition-all max-w-7xl lg:grid-cols-3 animate-fadeIn">
-              <PageHeader className={`text-xs`} />
         <div className="col-span-2">
+              <PageHeader className={`text-xs mb-2 ml-1`} />
           <div className="mb-6">
             <div className="flex items-center w-full gap-2 px-4 py-2 mb-4 text-sm border-0 rounded-full bg-gray-950">
               <CgSearch size={20} color="gray" />
