@@ -192,6 +192,8 @@ For detailed API documentation, please refer to the [server README](./server/REA
 - Add tests for new features
 - Update documentation as needed
 - Ensure all tests pass before submitting
+- Follow the [Contribution](CONTRIBUTING.md) guidelines
+- Maintain [Code of conduct](CODE_OF_CONDUCT.md)
 
 ## Deployment
 
