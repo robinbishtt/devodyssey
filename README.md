@@ -223,9 +223,9 @@ The backend is deployed on [Render](https://render.com/). Render automatically d
 ## Roadmap
 
 - [ ] Advanced SEO features
-- [ ] Social media integration
-- [ ] Comment system
-- [ ] Analytics
+- [ ] Follow System
+- [ ] Text Editor
+- [ ] Blog Saving Option
 - [ ] Progressive Web App (PWA) features
 
 ## Support
