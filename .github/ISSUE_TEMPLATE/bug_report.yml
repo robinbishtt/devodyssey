@@ -1,5 +1,4 @@
 name: Bug Report
-about: Report a functional issue or unintended behavior in the application.
 title: "[BUG] "
 labels: ["type: bug", "severity: medium"]
 assignees: []
