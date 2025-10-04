@@ -90,7 +90,7 @@ We are committed to responding promptly to security reports:
 
 - **Initial Response**: Within **48 hours** of receiving your report
 - **Status Update**: Within **7 days** with our assessment and action plan
-- **Resolution**: We aim to resolve critical vulnerabilities within **30 days**
+- **Resolution**: We aim to resolve critical vulnerabilities within **7-14 days**
 - **Public Disclosure**: Coordinated with the reporter after the fix is deployed
 
 ### What to Expect
