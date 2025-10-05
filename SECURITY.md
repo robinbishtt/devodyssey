@@ -90,7 +90,7 @@ We are committed to responding promptly to security reports:
 
 - **Initial Response**: Within **48 hours** of receiving your report
 - **Status Update**: Within **7 days** with our assessment and action plan
-- **Resolution**: We aim to resolve critical vulnerabilities within **30 days**
+- **Resolution**: We aim to resolve critical vulnerabilities within **7-14 days**
 - **Public Disclosure**: Coordinated with the reporter after the fix is deployed
 
 ### What to Expect
@@ -174,7 +174,7 @@ DevOdyssey implements several security measures:
 - **Password Hashing**: Bcrypt for secure password storage
 - **Input Validation**: Server-side validation of all inputs
 - **CORS Protection**: Configured CORS policies
-- **Rate Limiting**: Protection against brute force attacks (planned)
+- **Rate Limiting**: Protection against brute force attacks
 - **Secure Headers**: HTTP security headers configured
 - **Environment Variables**: Sensitive data kept out of source code
 
